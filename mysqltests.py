@@ -2,6 +2,7 @@ import unittest
 
 from pybean import Store
 from MySQLWriter import MySQLWriter
+import datetime
 
 class TestMysql(unittest.TestCase):
     def setUp(self):
@@ -42,6 +43,7 @@ class TestMysql(unittest.TestCase):
         bean = db.new("book")
         self.assertEqual(bean.__class__.__name__, "book")
         bean.title="test"
+        bean.total_rent_time = datetime.timedelta(0,6400)
         _id = db.save(bean)
         db.commit()
 
