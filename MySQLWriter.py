@@ -1,9 +1,7 @@
 import mysql.connector
 from pybean import SQLiteWriter
+import datetime
 
-__version__ = "0.2.1"
-__author__ = "Fabien Di Tore"
-__email__ = "fabien@ditore.ch"
 
 class MySQLWriter(SQLiteWriter):
 
@@ -65,10 +63,26 @@ class MySQLWriter(SQLiteWriter):
     def __create_column(self, table, column, sqltype):
         if self.frozen:
             return
+        """
         if sqltype in [long, complex, float, int, bool]:
             sqltype = "NUMERIC"
         else:
             sqltype = "TEXT"
+        """
+# @TODO reinforce types, this is a bit crappy.
+        if sqltype == datetime.timedelta:
+            sqltype = "TIME"
+        elif sqltype == datetime.datetime:
+            sqltype = "DATETIME"
+        elif sqltype == datetime.date:
+            sqltype = "DATE"
+        elif sqltype == unicode:
+            sqltype = "VARCHAR"
+
+
+
+
+
         sql = "ALTER TABLE `" + table + "` add `" + column + "` " + sqltype + " NULL"
         #ALTER TABLE `test` ADD `test` INT NULL
         self.cursor.execute(sql)

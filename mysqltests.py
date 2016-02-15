@@ -32,9 +32,10 @@ class TestMysql(unittest.TestCase):
         store = self.get_fluid_save()
         db = store.writer
         #print db
-        db.cursor.execute("select * from test")
+        db.cursor.execute("select * from typemap;")
         for row in db.cursor:
-            print row
+            for key in row:
+                print row[key].__class__.__name__,key
 
     def test_new_bean_type(self):
         db = self.get_fluid_save()
@@ -44,11 +45,14 @@ class TestMysql(unittest.TestCase):
         _id = db.save(bean)
         db.commit()
 
+
+
      #   self.assertEqual(bean.id,1)
 
-        for book in db.find("book","title like %s",["test"]):
-            print book.title
-        db.commit()
+     #    for book in db.find("typemap","",[]):
+
+      #     print book.__class__.__name__
+     #   db.commit()
 
 if __name__ == '__main__':
     unittest.main()
