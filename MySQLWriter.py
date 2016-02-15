@@ -4,24 +4,6 @@ from pybean import SQLiteWriter
 __version__ = "0.2.1"
 __author__ = "Fabien Di Tore"
 __email__ = "fabien@ditore.ch"
-"""
-class MySQLCursorDict(mysql.connector.cursor.MySQLCursor):
-
-    def fetchone(self):
-        row = self._fetch_row()
-        if row:
-            #print row
-            return dict(zip(self.column_names, self._row_to_python(row)))
-
-        return None
-
-    def fetchone(self):
-        row = self._fetch_row()
-        if row:
-            return dict(zip(self.column_names, self._row_to_python(row)))
-
-        return None
-"""
 
 class MySQLWriter(SQLiteWriter):
 
